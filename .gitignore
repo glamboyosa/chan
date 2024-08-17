@@ -1,1 +1,5 @@
-node_modules
+# Ignore node_modules in root and any subdirectories
+node_modules/
+
+# Ignore dist directory within the api directory
+/api/dist
