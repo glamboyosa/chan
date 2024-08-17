@@ -1,36 +1,33 @@
 {
-  "name": "@glamboyosa/chan",
-  "version": "0.0.1",
-  "private": false,
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "./dist/**",
-    "readme.md"
-  ],
-  "keywords": [
-    "@glamboyosa/chan",
-    "chan",
-    "Go channels",
-    "Golang channels",
-    "Golang",
-    "sdk",
-    "library"
-  ],
-  "scripts": {
-    "build": "tsup",
-    "lint": " pnpm biome format . --write && pnpm biome lint --write --unsafe .",
-    "lf": "pnpm biome check --unsafe .",
-    "prepare": "husky"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "tsup": "8.2.4",
-    "typescript": "^5.5.4"
-  }
+	"name": "@glamboyosa/chan",
+	"version": "0.0.1",
+	"private": false,
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": ["./dist/**", "readme.md"],
+	"keywords": [
+		"@glamboyosa/chan",
+		"chan",
+		"Go channels",
+		"Golang channels",
+		"Golang",
+		"sdk",
+		"library"
+	],
+	"scripts": {
+		"build": "tsup",
+		"lint": " pnpm biome format . --write && pnpm biome lint --write --unsafe .",
+		"lf": "pnpm biome check --unsafe .",
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"tsup": "8.2.4",
+		"typescript": "^5.5.4"
+	}
 }
