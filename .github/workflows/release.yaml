@@ -43,15 +43,30 @@ jobs:
           fi
 
       - name: Bump Version and Create Release
-        id: bump-version
         env:
           HUSKY_SKIP_HOOKS: 1
+        id: bump-version
         run: |
+          cd api
           git config --local user.name "GitHub Action"
           git config --local user.email "actions@github.com"
+
+          # Get current version
+          current_version=$(npm pkg get version)
+
+          # Bump the version
           npm version patch -m "Release version %s"
-          git push origin main --follow-tags --no-verify
-          echo "New version: $(npm pkg get version)"
+
+          # Get new version
+          new_version=$(npm pkg get version)
+
+          echo "New version: $new_version"
+
+          # Commit and push the changes
+          git add package.json
+          git commit -m "Bump version to $new_version"
+          git tag -a "v$new_version" -m "Release version $new_version"
+          git push origin main --follow-tags
 
       - name: Publish to npm
         run: npm publish
