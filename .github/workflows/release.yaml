@@ -48,7 +48,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git config --local user.email "actions@github.com"
           npm version patch -m "Release version %s"
-          git push origin main --follow-tags
+          git push origin main --follow-tags --no-verify
           echo "New version: $(npm pkg get version)"
 
       - name: Publish to npm
