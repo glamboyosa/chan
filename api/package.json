@@ -19,13 +19,14 @@
     "library"
   ],
   "scripts": {
-	"build": "tsup",
+    "build": "tsup",
     "lint": " pnpm biome format ./src --write && pnpm biome lint --write --unsafe ./src",
     "lf": "pnpm biome check --unsafe ./src",
     "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
+    "husky": "^9.1.4",
     "tsup": "8.2.4"
   }
 }
