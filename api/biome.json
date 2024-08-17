@@ -1,4 +1,7 @@
 {
+	"files": {
+		"ignore": ["dist"]
+	},
 	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
 	"formatter": {
 		"enabled": true,
@@ -10,6 +13,7 @@
 		"lineWidth": 80,
 		"lineEnding": "lf"
 	},
+
 	"javascript": {
 		"formatter": {
 			"arrowParentheses": "always",

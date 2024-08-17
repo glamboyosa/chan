@@ -1,5 +1,5 @@
 #!/bin/sh
 # husky
 
-(cd api && pnpm lint && pnpm lf)
+(cd api && tsup && pnpm lint && pnpm lf)
 
