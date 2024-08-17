@@ -9,6 +9,9 @@ var Channel = class {
   async send(value) {
     if (this.resolveQueue.length > 0) {
       const resolve = this.resolveQueue.shift();
+      if (!resolve) {
+        throw new Error("Expected an item in the resolveQueue but found none.");
+      }
       resolve(value);
     } else if (this.queue.length < this.bufferSize) {
       this.queue.push(value);
@@ -21,7 +24,11 @@ var Channel = class {
   }
   async receive() {
     if (this.queue.length > 0) {
-      return this.queue.shift();
+      const val = this.queue.shift();
+      if (!val) {
+        throw new Error("Expected an item in the resolveQueue but found none.");
+      }
+      return val;
     }
     if (this.closed) {
       return null;
@@ -34,6 +41,9 @@ var Channel = class {
     this.closed = true;
     while (this.resolveQueue.length > 0) {
       const resolve = this.resolveQueue.shift();
+      if (!resolve) {
+        throw new Error("Expected an item in the resolveQueue but found none.");
+      }
       resolve(null);
     }
   }
