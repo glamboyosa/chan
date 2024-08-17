@@ -1,6 +1,6 @@
 {
 	"name": "@glamboyosa/chan",
-	"version": "0.1.0",
+	"version": "0.0.9",
 	"private": false,
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -9,6 +9,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"files": ["./dist/**"],
 	"keywords": [
 		"@glamboyosa/chan",
 		"chan",
@@ -26,6 +27,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
-		"tsup": "8.2.4"
+		"tsup": "8.2.4",
+		"typescript": "^5.5.4"
 	}
 }

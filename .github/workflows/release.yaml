@@ -1,0 +1,61 @@
+name: Conditional Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release and Publish Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build # Ensure this command builds the `dist` folder
+
+      - name: Check for File Changes
+        id: file_changes
+        run: |
+          git fetch --depth=2
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          echo "Changed files: $CHANGED_FILES"
+          if ! echo "$CHANGED_FILES" | grep -qE "^(api/index.ts|src/api.ts)$"; then
+            echo "No relevant file changes detected. Skipping version bump and release."
+            exit 0
+          fi
+
+      - name: Bump Version and Create Release
+        id: bump-version
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "actions@github.com"
+          npm version patch -m "Release version %s"
+          git push origin main --follow-tags
+          echo "New version: $(npm pkg get version)"
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ steps.bump-version.outputs.new_version }}
+          release_name: Release ${{ steps.bump-version.outputs.new_version }}
+          draft: false
+          prerelease: false
+          body: |
+            Release of version ${{ steps.bump-version.outputs.new_version }}
