@@ -26,9 +26,18 @@ jobs:
         id: file_changes
         run: |
           git fetch --depth=2
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+
+          # Check if HEAD~1 is available, else use HEAD
+          if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          else
+            CHANGED_FILES=$(git diff --name-only HEAD)
+          fi
+
           echo "Changed files: $CHANGED_FILES"
-          if ! echo "$CHANGED_FILES" | grep -qE "^(api/index.ts|src/api.ts)$"; then
+
+          # Check if relevant files have changed
+          if ! echo "$CHANGED_FILES" | grep -qE "^(index.ts|api.ts)$"; then
             echo "No relevant file changes detected. Skipping version bump and release."
             exit 0
           fi
